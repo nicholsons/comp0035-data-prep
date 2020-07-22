@@ -6,7 +6,9 @@ This activity uses a cloud service Jupyter notebook. When you open one of the fo
 Once you have the notebook open using one of the following methods, you should follow the instructions in the notebook itself.
 
 ### 1. Using the notebook in the Binder cloud service (no account required, no ability to save changes)
-If you do not want to create an account then you can access the notebook using [Binder](https://mybinder.org) at [https://mybinder.org/v2/gh/nicholsons/cs_incoming_datavis.git/master?filepath=incoming_students_data_visualisation.ipynb](https://mybinder.org/v2/gh/nicholsons/cs_incoming_datavis.git/master?filepath=incoming_students_data_visualisation.ipynb).  
+If you do not want to create an account then you can access the notebook using [Binder](https://mybinder.org) at [https://mybinder.org/v2/gh/nicholsons/comp0035_cleansing.git/master](https://mybinder.org/v2/gh/nicholsons/comp0035_cleansing.git/master).  
+
+Be patient, Binder takes a few minutes to start the container. Once it is ready, click on data_cleaning.ipynb to start. Once the Jupyter notebook is open, read and follow the instructions in the notebook.
 
 You will be able to make changes to the code during your Binder sessions and see the effect of your changes, however when you exit Binder any changes that you have made will not be saved. If you wish to save changes that you make to access at another time then the menu bar within the Binder session provides an option to download the notebook to your computer.
 
