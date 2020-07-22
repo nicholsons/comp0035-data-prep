@@ -1,0 +1,6 @@
+# This file is for use in the Binder service, to install in PyCharm you also need to install jupyter
+matplotlib==3.3.0
+numpy==1.19.0
+pandas==1.0.5
+xlrd==1.2.0
+
