@@ -1,49 +1,136 @@
 # Data cleansing activity for COMP0035
 
-## Getting started
-This activity uses a Jupyter notebook. You can either install code that allows you to use Jupyter notebooks locally on your computer or use a cloud-hosted version. 
+## Setup
 
-Once you have the notebook open using one of the following methods, you should follow the instructions in the notebook itself.
+Please create a Python project and install pandas and matplotlib.
 
-### 1. Using the notebook in the Binder cloud service
-Binder does not require you to create an account nor do you need to install any software on your computer. You can access the notebook using [Binder](https://mybinder.org) at [https://mybinder.org/v2/gh/nicholsons/comp0035_cleansing.git/master](https://mybinder.org/v2/gh/nicholsons/comp0035_cleansing.git/master).  
+If you are creating a project with a new `venv` then remember to:
 
-Be patient, Binder takes a few minutes to start the container. Once it is ready, click on data_cleaning.ipynb to start. Once the Jupyter notebook is open, read and follow the instructions in the notebook.
+- create the venv
+- activate the venv
+- install the requirements e.g. `pip install -r requirements.txt` or `pip install pandas matplotlib openpyxl`
 
-You will be able to make changes to the code during your Binder sessions and see the effect of your changes, however when you exit Binder any changes that you have made will not be saved. If you wish to save changes that you make to access at another time then the menu bar within the Binder session provides an option to download the notebook to your computer.
-
-### 2. Using the notebook in PyCharm
-Clone the repository in PyCharm
-Go to preferences and add a new venv
-Install jupyter, numpy, pandas, matplotlib and xlrd in the venv
-
-
-### 3. Using a locally installed Python Jupyter notebook environment (not PyCharm)
-If you already have a locally installed Python development environment and code editor then you may be able to work out how to use Jupyter notebooks on your own machine. 
-For example, if you are using [Visual Studio Code, you can work with Jupyter notebooks in the IDE](https://code.visualstudio.com/docs/python/jupyter-support). 
-You will need to investigate options for doing this yourself depending on your own setup. 
-You may need to install numpy, pandas and matplotlib in your local environment which you should be able to do with pip, e.g. 
-```python
-pip install jupyter
-pip install numpy
-pip install pandas
-pip install matplotlib
-pip install xlrd
-```
-
-## Feedback and corrections
-This notebook is maintained at [https://github.com/nicholsons/comp0035_cleansing](https://github.com/nicholsons/comp0035_cleansing). 
-
-Please report suggestions or errors at [https://github.com/nicholsons/comp0035_cleansing/issues](https://github.com/nicholsons/comp0035_cleansing/issues).
-
-This notebook was developed by [Sarah Sanders](mailto:sarah.sanders@ucl.ac.uk).
+Note that this activity was originally created in a Jupyter notebook, the previous .ipynb file is in the `pre-2022`
+directory.
 
 ## Acknowledgements
-The idea for this activity was inspired by an artile published in the Centre for Global Development by Shelby Carvalho and Lee Crawfurd on 25th March 2020 called [School’s Out: Now What?](https://www.cgdev.org/blog/schools-out-now-what).
 
-The data set used is that referred to in the article and was made [publicly available here by the Centre for Global Development]( https://docs.google.com/spreadsheets/d/1ndHgP53atJ5J-EtxgWcpSfYG8LdzHpUsnb6mWybErYg/edit?ts=5e6f893e#gid=0). The data set builds on UNESCO data on global school closures and gives detail about the closures and other support countries are providing whilst schools are closed.
+The idea for this activity was inspired by an article published in the Centre for Global Development by Shelby Carvalho
+and Lee Crawford on 25th March 2020 called [School’s Out: Now What?](https://www.cgdev.org/blog/schools-out-now-what).
 
-## Data protection and privacy
-You should not put any personal data in an online notebook, that is, do not include details that could allow you to be identified or information about yourself that you would not wish to be seen by others.
+The data set used is that referred to in the article and was
+made [publicly available here by the Centre for Global Development]( https://docs.google.com/spreadsheets/d/1ndHgP53atJ5J-EtxgWcpSfYG8LdzHpUsnb6mWybErYg/edit?ts=5e6f893e#gid=0)
+. The data set builds on UNESCO data on global school closures and gives detail about the closures and other support
+countries are providing whilst schools are closed.
 
-[Information on privacy for the Binder service can be found here](https://mybinder.readthedocs.io/en/latest/faq.html).
+## Activity guidance
+
+Data cleansing and preparation is one of the early steps in any data science project. There is evidence that data
+scientists spend up to 70% of their time cleaning data.
+
+This activity walks you through an example of some initial steps of data cleansing in Python.
+
+The dataset that we will use for this activity has already been downloaded and is available as `cgd_raw.csv`
+or `cgd_raw.xlsx`. The dataset was downloaded from the Centre for Global Development.
+
+Let's assume that the aim of the project is to answer the question:
+
+> "At what point in the Covid pandemic should a country close schools?"
+
+We are going to try to answer this by creating a bar chart showing the median reported cases of Covid at the time
+schools were closed in each region. This activity focuses on preparing the data that would be needed in the bar chart.
+
+In this illustration, we will create the bar chart; however this is not part of the data preparation and cleaning phase.
+
+This is a simplistic use of the data set, however it introduces the concept of data cleaning.
+
+### Step 1 Create a python file, import pandas and create an empty function for your code
+
+For example, you could:
+
+- Create a python file e.g. data_prep.py
+- From pathlib import Path (this will be used to reference the data file in a way that should work for Windows and
+  macOS)
+- Import the pandas library
+- Create a `process_data` function
+- Add a main function that you will later use to run the `process_data` function
+
+```python
+from pathlib import Path
+import pandas as pd
+
+
+def process_data(data):
+    """
+    Main function to introduce pandas functions for data preparation and understanding.
+
+    Uses the CGD example data set for tracking school closures during the Covid pandemic.
+
+    Args:
+        data: Pandas dataframe of the Covid data
+
+    Returns:
+        None
+    """
+    pass
+
+
+if __name__ == "__main__":
+    pass
+
+
+```
+
+### Step 2 Open the data file
+
+Add code to the `main` function to open the data file and then pass this as an argument to the `process_data` function.
+
+The following shows the syntax for either excel or csv, you don't need to use both, pick one!
+
+```python
+if __name__ == "__main__":
+    # Define the path to the csv and excel versions of the datafile in a way that works on both Mac and Windows
+    cgd_raw_csv = Path(__file__).parent.joinpath('data', 'cgd_raw.csv')
+    cgd_raw_xlsx = Path(__file__).parent.joinpath('data', 'cgd_raw.xlsx')
+
+    # Load the xlsx file into a pandas DataFrame and skip the first line which contains the logo
+    df_cgd_raw_xlsx = pd.read_excel(cgd_raw_xlsx, sheet_name='School closure tracker- Global', skiprows=1)
+
+    # Load the csv file into a pandas DataFrame
+    df_cgd_raw_csv = pd.read_csv(cgd_raw_csv)
+
+    # Call the data_prep function and pass the data, choose either the csv or the xslx version
+    process_data(df_cgd_raw_csv)
+```
+
+### Step 3
+
+Using pandas, add to the `process_data` function code to explore:
+
+- the number of rows and columns
+- the data types of the columns
+- the first few rows of data
+
+```python
+def process_data(data):
+    # Dataframe with the data
+    df = data
+    # Print the total number of rows and columns in the DataFrame
+    print(df.shape)
+    # Print the column headings only
+    print(df.columns)
+    # Print details about the rows and columns, including data types
+    print(df.info(verbose=True))
+    # Print the first 5 rows
+    print(df.head(5))
+```
+
+The columns printed will be truncated to the width of the terminal. You can show all the columns by setting the view in
+pandas to be the width of the dataset (or you can specify a particular number).
+
+```python
+# Set pandas display options to the number of columns and tows in the dataframe
+pd.set_option('display.max_rows', df.shape[0] + 1)
+pd.set_option('display.max_columns', df.shape[1] + 1)
+```
+
