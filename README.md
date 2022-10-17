@@ -296,3 +296,19 @@ chart_df.plot.barh(x="Region", y="Cases", title="Median number of reported COVID
 # Show the chart
 plt.show()
 ```
+
+### Step 8 Save the prepared data
+
+You may wish to save the prepared data rather than repeating the cleaning steps.
+
+Add this code before the `plt.show()` otherwise the code won't run until you close the plot window.
+
+```python
+    # Save the chart DataFrame back to a new csv. 
+chart_csv_name = Path(__file__).parent.joinpath('data', 'chart_data.csv')
+chart_df.to_csv(chart_csv_name)
+
+# The DataFrame before the grouping to a new xlsx. 'index=False' indicates that row names should not be saved.
+prepared_data_xlsx_name = Path(__file__).parent.joinpath('data', 'prepared_data.xlsx')
+df.to_excel(prepared_data_xlsx_name, index=False)
+```
