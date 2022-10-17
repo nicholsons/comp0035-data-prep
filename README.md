@@ -97,7 +97,7 @@ if __name__ == "__main__":
     df_cgd_raw_xlsx = pd.read_excel(cgd_raw_xlsx, sheet_name='School closure tracker- Global', skiprows=1)
 
     # Load the csv file into a pandas DataFrame
-    df_cgd_raw_csv = pd.read_csv(cgd_raw_csv)
+    df_cgd_raw_csv = pd.read_csv(cgd_raw_csv, skiprows=1)
 
     # Call the data_prep function and pass the data, choose either the csv or the xslx version
     process_data(df_cgd_raw_csv)
