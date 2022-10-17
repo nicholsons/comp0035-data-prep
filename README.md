@@ -103,7 +103,7 @@ if __name__ == "__main__":
     process_data(df_cgd_raw_csv)
 ```
 
-### Step 3
+### Step 3 Explore the shape of the data
 
 Using pandas, add to the `process_data` function code to explore:
 
@@ -134,3 +134,165 @@ pd.set_option('display.max_rows', df.shape[0] + 1)
 pd.set_option('display.max_columns', df.shape[1] + 1)
 ```
 
+### Step 4 Delete unnecessary columns
+
+Delete columns that you either don't need or contain values that you are not useful to you. In this example we don't
+need the columns with URLs and large amounts of text.
+
+The pandas DataFrame `drop()` method can be used to delete columns.
+
+The following code shows examples of some ways you can remove
+columns. [See Pandas documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html)
+for more details.
+
+```python
+# Remove a single column with the name 'Source for Re-opening'. The parameter axis=1 refers to a column (row would be axis=0).
+df = df.drop(['Source for Re-opening'], axis=1)
+
+# Remove two columns named 'Facebook Page' and 'Official COVID Education Policy Document'
+df = df.drop(['Facebook Page', 'Official COVID Education Policy Document'], axis=1)
+
+# Remove columns 40 and 41
+df = df.drop(df.columns[[40, 41]], axis=1)
+
+# Check the final 5 columns have been removed
+print(df.columns)
+print(df.shape)  # Should have 40 columns instead of 45
+```
+
+> Challenge: Add your own code to remove at least one other unnecessary column.
+
+### Step 5 Handle missing values
+
+Missing values can be the most common feature of unclean data. These values are usually in the form of NaN or None.
+
+There are many reasons for values to be missing, for example because they don't exist, or because of improper data
+collection or improper data entry. For example, if someone is underage and the issue applies to someone older than 18,
+the question will contain missing values.
+
+There are many ways to deal with missing values:
+
+- Do nothing (this may be appropriate in some circumstances).
+- If your data set is large enough and/or the percentage of missing values is high, you may choose to delete the rows
+  and columns that contain the missing data;
+- Use an imputation technique to fill the missing values (e.g. mean, median, most frequent etc)
+
+The decision will depend on the type of data, the actions you want to perform on the data, and the reasons for the
+missing
+values. [This article on Towards Data Science](https://towardsdatascience.com/6-different-ways-to-compensate-for-missing-values-data-imputation-with-examples-6022d9ca0779)
+gives pros and cons of some common imputation techniques. You are not expected to understand the specific imputation
+techniques and make an informed choice to apply to your coursework. For this course it is sufficient that you understand
+the implications of missing data and make an informed decision whether to do nothing, remove data or use imputation.
+
+[The pandas documentation](https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html) explains how to
+work with missing data.
+
+Let's add code to delete all rows that have empty columns and any columns that have more than 50% of the values missing:
+
+```python
+  # MISSING VALUES
+
+# Count the number of rows where all the columns are empty (null)
+print(df.isna().all(axis=1).sum())
+
+# Remove the rows where all columns are empty
+# Pandas would return a copy of the dataset, however we want to replace it rather than copy
+# To do this you can re-assign the variable name (as below) or
+# using the 'inplace=True' parameter:   df.dropna(how='all', inplace=True)
+df = df.dropna(how='all')
+
+# Print the columns showing the % of missing values
+print(df.isnull().sum() / len(df))
+
+# Delete columns that have more than 50% of the values missing
+half_count = len(df) / 2
+df = df.dropna(thresh=half_count, axis=1)
+
+# Print the shape of the data; the number of columns should be reduced
+print(df.shape)
+
+```
+
+### Step 6 Handle inconsistent values
+
+When there are different unique values in the column, an inconsistency can occur. Examples include:
+
+- **Text data**: Imagine a text field that contains 'Juvenile', 'juvenile' and ' juvenile ' in the same column, you
+  could remove spaces and convert all data to lowercase. If there are a large number of inconsistent unique entries, you
+  cannot manually check the closest match, in which case there are various packages that can be used (e.g. Fuzzy Wuzzy
+  string matching).
+- **Date/time data**: Inconsistent date format, such as dd / mm / yy and mm / dd / yy in the same column. Your date
+  value may not be the correct data type, which will not allow you to perform actions efficiently and gain insight from
+  it.
+
+Add code to check for date formats in the `Date` columns and find the unique values in the `School closures` column.
+
+```python
+    # INCONSISTENT VALUES
+
+# Print the unique values in the `Date` column
+print(df['Date'].unique())
+
+# Print the unique values in the `School Closures` column
+print(df['School Closures'].unique())
+```
+
+The 'Date' column appears OK, however the values in the 'School Closures' suggest there may be different terms used for
+the same meaning:
+
+```text
+'Yes' 
+'Yes '
+'Yes (some areas)' 
+'Yes (partial)' 
+'Yes (some)' 
+'No' 
+nan 
+```
+
+### Step 6 Add, or compute, additional data
+
+We need to calculate the median Covid cases at the date of closure for a region.
+
+We can aggregate the data in the region column using ‘Group By’ and then calculate the median for the number of cases.
+
+```python
+df.groupby("Region")["Cases"].median()
+```
+
+However, if you check the datatype of the ‘Cases’ column by entering `print(df.types)` you will see that ‘Cases’ has a
+datatype of Object rather than int. We cannot calculate a median for an object datatype so we first need to convert it
+to a numeric format.
+
+```python
+# Rename the column 'Number of confirmed cases at time of closure' to 'Cases'
+df = df.rename(columns={'Number of confirmed cases at time of closure': 'Cases'})
+
+# Change the datatype to numeric
+df["Cases"] = pd.to_numeric(df["Cases"], errors="coerce")
+
+# Aggregate on median cases per region
+chart_df = df.groupby("Region")["Cases"].median()
+```
+
+### Step 7 Visualise the data as a final check
+
+Let's have a look at the data to see if we do have the data we will need for our final chart.
+
+We will create a 'quick and dirty' chart; that is we won't spend any time formatting it for visual impact.
+
+To do this we will need code that will render the chart so add the import `import matplotlib.pyplot as plt`
+
+Create
+a [horizontal bar chart](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.barh.html#pandas.DataFrame.plot.barh)
+.
+
+```python
+import matplotlib.pyplot as plt
+
+# Draw a horizontal bar chart
+chart_df.plot.barh(x="Region", y="Cases", title="Median number of reported COVID-19 cases at school closure, by region")
+
+# Show the chart
+plt.show()
+```
