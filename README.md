@@ -10,9 +10,6 @@ If you are creating a project with a new `venv` then remember to:
 - activate the venv
 - install the requirements e.g. `pip install -r requirements.txt` or `pip install pandas matplotlib openpyxl`
 
-Note that this activity was originally created in a Jupyter notebook, the previous .ipynb file is in the `pre-2022`
-directory.
-
 ## Acknowledgements
 
 The idea for this activity was inspired by an article published in the Centre for Global Development by Shelby Carvalho
