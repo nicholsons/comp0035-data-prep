@@ -10,9 +10,6 @@ If you are creating a project with a new `venv` then remember to:
 - activate the venv
 - install the requirements e.g. `pip install -r requirements.txt` or `pip install pandas matplotlib openpyxl`
 
-Note that this activity was originally created in a Jupyter notebook, the previous .ipynb file is in the `pre-2022`
-directory.
-
 ## Acknowledgements
 
 The idea for this activity was inspired by an article published in the Centre for Global Development by Shelby Carvalho
@@ -97,7 +94,7 @@ if __name__ == "__main__":
     df_cgd_raw_xlsx = pd.read_excel(cgd_raw_xlsx, sheet_name='School closure tracker- Global', skiprows=1)
 
     # Load the csv file into a pandas DataFrame
-    df_cgd_raw_csv = pd.read_csv(cgd_raw_csv)
+    df_cgd_raw_csv = pd.read_csv(cgd_raw_csv, skiprows=1)
 
     # Call the data_prep function and pass the data, choose either the csv or the xslx version
     process_data(df_cgd_raw_csv)
