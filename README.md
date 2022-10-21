@@ -1,4 +1,4 @@
-# Data cleansing activity for COMP0035
+# Data preparation and understanding activity for COMP0035
 
 ## Setup
 
