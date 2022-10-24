@@ -113,13 +113,15 @@ def process_data(data):
     # Dataframe with the data
     df = data
     # Print the total number of rows and columns in the DataFrame
-    print(df.shape)
+    print("\nShape\n", df.shape)
     # Print the column headings only
-    print(df.columns)
+    print("\nColumns\n",df.columns)
+    # Print the column data types
+    print("\nColumns with data types\n", df.dtypes)
     # Print details about the rows and columns, including data types
-    print(df.info(verbose=True))
+    print("\nInfo\n", df.info(verbose=True))
     # Print the first 5 rows
-    print(df.head(5))
+    print("\nHead - first 5 rows\n", df.head(5))
 ```
 
 The columns printed will be truncated to the width of the terminal. You can show all the columns by setting the view in
@@ -153,8 +155,8 @@ df = df.drop(['Facebook Page', 'Official COVID Education Policy Document'], axis
 df = df.drop(df.columns[[40, 41]], axis=1)
 
 # Check the final 5 columns have been removed
-print(df.columns)
-print(df.shape)  # Should have 40 columns instead of 45
+print("\nColumns\n", df.columns)
+print("\nShape\n", df.shape)  # Should have 40 columns instead of 45
 ```
 
 > Challenge: Add your own code to remove at least one other unnecessary column.
@@ -190,7 +192,7 @@ Let's add code to delete all rows that have empty columns and any columns that h
   # MISSING VALUES
 
 # Count the number of rows where all the columns are empty (null)
-print(df.isna().all(axis=1).sum())
+print("\nCount of rows where all columns are empty\n", df.isna().all(axis=1).sum())
 
 # Remove the rows where all columns are empty
 # Pandas would return a copy of the dataset, however we want to replace it rather than copy
@@ -199,14 +201,14 @@ print(df.isna().all(axis=1).sum())
 df = df.dropna(how='all')
 
 # Print the columns showing the % of missing values
-print(df.isnull().sum() / len(df))
+print("\nColumns showing % of missing values\n", df.isnull().sum() / len(df))
 
 # Delete columns that have more than 50% of the values missing
 half_count = len(df) / 2
 df = df.dropna(thresh=half_count, axis=1)
 
 # Print the shape of the data; the number of columns should be reduced
-print(df.shape)
+print("\nShape\n", df.shape)
 
 ```
 
@@ -228,10 +230,10 @@ Add code to check for date formats in the `Date` columns and find the unique val
     # INCONSISTENT VALUES
 
 # Print the unique values in the `Date` column
-print(df['Date'].unique())
+print("\nUnique values in the date column\n", df['Date'].unique())
 
 # Print the unique values in the `School Closures` column
-print(df['School Closures'].unique())
+print("\nUnique values in the school closures\n", df['School Closures'].unique())
 ```
 
 The 'Date' column appears OK, however the values in the 'School Closures' suggest there may be different terms used for
