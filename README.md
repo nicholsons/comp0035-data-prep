@@ -249,6 +249,23 @@ the same meaning:
 nan 
 ```
 
+The trailing whitespace i 'Yes ' can be removed using the [string strip function](https://pandas.pydata.org/pandas-docs/version/0.24/reference/api/pandas.Series.str.strip.html).
+
+To replace the values of ['Yes (some areas)', 'Yes (some)' ] with a value of 'Yes (partial)' can be achieved using the [replace function](https://pandas.pydata.org/docs/reference/api/pandas.Series.replace.html).
+
+```python
+    # Remove the trailing whitepsace from the `School Closures column`
+    df["School Closures"] = df["School Closures"].str.strip()
+    
+    # Print the unique values in the `School Closures` column
+    print(
+        "\nUnique values in the school closures after stripping trailing whitespace and replacing values\n",
+        df["School Closures"].unique(),
+    )
+```
+
+You should see that the list of unique values is now  ['Yes' 'Yes (partial)' 'No' nan].
+
 ### Step 6 Add, or compute, additional data
 
 We need to calculate the median Covid cases at the date of closure for a region.
