@@ -264,7 +264,14 @@ To replace the values of ['Yes (some areas)', 'Yes (some)' ] with a value of 'Ye
     )
 ```
 
-You should see that the list of unique values is now  ['Yes' 'Yes (partial)' 'No' nan].
+You should see that the list of unique values is now:
+
+```text
+'Yes' 
+'Yes (partial)' 
+'No' 
+nan
+```
 
 ### Step 6 Add, or compute, additional data
 
