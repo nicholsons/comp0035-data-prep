@@ -257,6 +257,11 @@ To replace the values of ['Yes (some areas)', 'Yes (some)' ] with a value of 'Ye
     # Remove the trailing whitepsace from the `School Closures column`
     df["School Closures"] = df["School Closures"].str.strip()
     
+    # Replace 'Yes (some areas)' and 'Yes (some)'] with 'Yes (some areas)' using the replace() method
+    df["School Closures"] = df["School Closures"].replace(
+        ["Yes (some areas)", "Yes (some)"], "Yes (partial)"
+    )
+    
     # Print the unique values in the `School Closures` column
     print(
         "\nUnique values in the school closures after stripping trailing whitespace and replacing values\n",
