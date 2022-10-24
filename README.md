@@ -249,7 +249,7 @@ the same meaning:
 nan 
 ```
 
-The trailing whitespace i 'Yes ' can be removed using the [string strip function](https://pandas.pydata.org/pandas-docs/version/0.24/reference/api/pandas.Series.str.strip.html).
+The trailing whitespace in 'Yes ' can be removed using the [string strip function](https://pandas.pydata.org/pandas-docs/version/0.24/reference/api/pandas.Series.str.strip.html).
 
 To replace the values of ['Yes (some areas)', 'Yes (some)' ] with a value of 'Yes (partial)' can be achieved using the [replace function](https://pandas.pydata.org/docs/reference/api/pandas.Series.replace.html).
 
