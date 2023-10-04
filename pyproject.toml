@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "comp0035-data-prep"
+version = "0.0.1"
+authors = [
+  { name="Sarah Sanders", email="sarah.sanders@ucl.ac.uk" },
+]
+description = "Template repository for COMP0035 tutorials 4 and 5"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pandas",
+    "matplotlib",
+    "openpyxl",
+]
+
+# Refer to https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["coursework*"]
+namespaces = false
+
